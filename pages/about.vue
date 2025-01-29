@@ -4,11 +4,13 @@
 
 <h2>About</h2>
 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic quis porro facere vitae et, fuga nesciunt libero sapiente consequatur quibusdam.</p>
+<h2>{{ data }}</h2>
   </div>
 </template>
 
 <script setup>
-
+// fetch api
+const{data}=useFetch('/api/ninja')
 </script>
 
 <style scoped>
