@@ -9,8 +9,20 @@
 </template>
 
 <script setup>
+
 // fetch api
-const{data}=useFetch('/api/ninja')
+// const { data } = await useFetch('/api/ninja?name=sabbir', {
+//   method: 'post',
+//   body:{age:24}
+// })
+
+// check another practice
+const { data } = await useAsyncData('users', () => $fetch('/api/ninja?name=sabbir', {
+  method: 'post',
+  body:{age:24}
+}))
+
+
 </script>
 
 <style scoped>

@@ -14,7 +14,11 @@ definePageMeta({
 })
 
 // fetch the product
-const {data:product}= await useFetch('https://fakestoreapi.com/products')
+// const { data: product } = await useFetch('https://fakestoreapi.com/products')
+
+// try another practice
+const {data:product}= await useAsyncData(()=>$fetch('https://fakestoreapi.com/products'))
+
 </script>
 
 <style scoped>
