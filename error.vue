@@ -8,8 +8,10 @@
 </template>
 
 <script setup>
+
 defineProps(['error'])
-const handelClearError = () =>clearError({redirect:'/'})
+const handelClearError = () => clearError({ redirect: '/' })
+
 </script>
 
 <style scoped>
