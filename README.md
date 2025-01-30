@@ -1,76 +1,89 @@
 # Nuxt Minimal Starter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## About Axios
+##### Axios হল একটি জনপ্রিয় HTTP ক্লায়েন্ট যা API থেকে ডাটা ফেচ করার জন্য ব্যবহার করা হয়। Nuxt.js এ Axios ব্যবহার করা খুবই সহজ, এবং এটি SSR (Server-Side Rendering) এবং CSR (Client-Side Rendering) উভয় ক্ষেত্রেই কাজ করে।
 
-## Setup
-
-Make sure to install dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+#### For Install axios you please command
 ```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+npm install @nuxtjs/axios
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+### After Install axios then axios set in Nuxt Config
 ```
+export default defineNuxtConfig({
+  modules: ['@nuxtjs/axios'],
+  axios: {
+    baseURL: 'https://jsonplaceholder.typicode.com', // ডিফল্ট API URL
+  }
+});
 
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
+*If you set the `baseURL` here, it will be used every time an API call is made.
+### API call using Axios
+```
+const { $axios } = useNuxtApp();
+const posts = ref([]);
+async () => {
+  try {
+    const response = await $axios.get('/posts');
+    posts.value = response.data;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+  }
+}
+```
+*If you use `useNuxtApp().$axios`, the `baseURL` provided in `nuxt.config.ts` will be automatically included.
+
+### Handling Axios with a composable file (Best Practice)
+#### Nuxt 3 Composable - `useApi.ts`
+
+Nuxt 3 এ Composable ফাইল ব্যবহার করলে কোড ক্লিন এবং রিপিটিশন কম হয়।
+
+## ✅ একটি নতুন `useApi.ts` Composable তৈরি করুন:
+```
+export default function useApi() {
+  const { $axios } = useNuxtApp();
+
+  const getPosts = async () => {
+    try {
+      const response = await $axios.get('/posts');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+      return [];
+    }
+  };
+
+  return { getPosts };
+}
+```
+✅ এখন Vue কম্পোনেন্টে ব্যবহার করুন:
+
+```
+<script setup>
+import useApi from '@/composables/useApi';
+
+const { getPosts } = useApi();
+const posts = ref([]);
+
+onMounted(async () => {
+  posts.value = await getPosts();
+});
+</script>
+
+<template>
+  <div>
+    <h1>Posts</h1>
+    <ul>
+      <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
+    </ul>
+  </div>
+</template>
+```
+✅ Axios ব্যবহার করলে useNuxtApp().$axios দিয়ে API কল করা যায়।
+✅ Composable (useApi.ts) ব্যবহার করলে কোড আরও ক্লিন হয়।
+
+
+
 ============ Error Handeling ===============
 
 ## Step -1 : To create a error.vue page in the root directory.
