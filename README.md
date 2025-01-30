@@ -82,6 +82,59 @@ onMounted(async () => {
 ✅ **Axios** ব্যবহার করলে `useNuxtApp().$axios` দিয়ে API কল করা যায়।  
 ✅ **Composable (useApi.ts)** ব্যবহার করলে কোড আরও ক্লিন হয়।
 
+============ UseFetch()=========
+##### useFetch() হল Nuxt.js এ data fetching করার জন্য একটি built-in কম্পোজেবল (Composable)। এটি server-side rendering (SSR) এবং client-side rendering (CSR) উভয় ক্ষেত্রে কাজ করে।
+```
+const { data: posts, pending, error } = useFetch('https://jsonplaceholder.typicode.com/posts');
+```
+🔍 কোড ব্যাখ্যা:
+✅ useFetch() API থেকে ডাটা ফেচ করে।
+✅ pending লোডিং অবস্থা চেক করে।
+✅ error থাকলে তা দেখায়।
+✅ data: posts দ্বারা ফেচ করা ডাটা reactive হয়।
+
+##### Set baseURL from Nuxt Config and use useFetch().
+In **Nuxt.js**, you can set a global API `baseURL` in the `nuxt.config.ts` file.
+
+📌 **Step 1:** Set `baseURL` in `nuxt.config.ts`
+```
+export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      apiBase: 'https://jsonplaceholder.typicode.com'
+    }
+  }
+});
+
+```
+*Now, when we use useFetch(), the baseURL will be automatically included.
+
+##### Using `baseURL` with `useFetch()`.
+```
+<script setup>
+const config = useRuntimeConfig();
+const { data: posts, pending, error } = useFetch(`${config.public.apiBase}/posts`);
+</script>
+```
+🔍 **Code Explanation:**
+
+✅ Using `useRuntimeConfig()`, I retrieved `apiBase` from `nuxt.config.ts`.
+
+✅ In `useFetch()`, I used `${config.public.apiBase}/posts` to make the API call.
+
+##### Query Parameter Usage (Dynamic Fetching)
+
+Sometimes, we need to send dynamic data. You can send query parameters with `useFetch()`.
+
+📌 **Example 3:** Using Dynamic Query Parameters with `useFetch()`
+
+```
+const userId = ref(1);
+const { data: posts, pending, error } = useFetch('https://jsonplaceholder.typicode.com/posts', {
+  query: { userId }
+});
+```
+
 
 
 
