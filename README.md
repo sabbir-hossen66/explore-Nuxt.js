@@ -87,7 +87,7 @@ const handelClearError = () => clearError({ redirect: '/' })
 </script>
 ```
 
-### and we can see error when we can't find our products/elements. then we can use belows code which is connected in error.vue page. these codes are set in the <script/> tag.
+###### and we can see error when we can't find our products/elements. then we can use belows code which is connected in error.vue page. these codes are set in the <script/> tag.
 ```
 if(!product.value){
   // const error = new Error('Product not found')
