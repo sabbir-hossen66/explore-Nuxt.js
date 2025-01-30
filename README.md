@@ -71,7 +71,7 @@ yarn preview
 # bun
 bun run preview
 ```
-====================================================# Error Handeling ========================================================
+============ Error Handeling ===============
 
 ## Step -1 : To create a error.vue page in the root directory.
 
