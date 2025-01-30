@@ -71,5 +71,31 @@ yarn preview
 # bun
 bun run preview
 ```
+====================================================# Error Handeling ========================================================
+
+## Step -1 : To create a error.vue page in the root directory.
+
+```
+<p>{{ error.statusCode }}</p>
+<p>{{error.message}}</p>
+<button class="btn my-7" @click="handelClearError"> clear error.</button>
+<script setup>
+
+defineProps(['error'])
+const handelClearError = () => clearError({ redirect: '/' })
+
+</script>
+```
+
+### and we can see error when we can't find our products/elements. then we can use belows code which is connected in error.vue page. these codes are set in the <script/> tag.
+```
+if(!product.value){
+  // const error = new Error('Product not found')
+  // error.statusCode = 404
+  // throw error
+throw createError({statusCode:404,message:'Product not found'})
+
+}
+```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
