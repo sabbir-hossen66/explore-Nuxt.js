@@ -79,8 +79,9 @@ onMounted(async () => {
   </div>
 </template>
 ```
-✅ Axios ব্যবহার করলে useNuxtApp().$axios দিয়ে API কল করা যায়।
-✅ Composable (useApi.ts) ব্যবহার করলে কোড আরও ক্লিন হয়।
+✅ **Axios** ব্যবহার করলে `useNuxtApp().$axios` দিয়ে API কল করা যায়।  
+✅ **Composable (useApi.ts)** ব্যবহার করলে কোড আরও ক্লিন হয়।
+
 
 
 
