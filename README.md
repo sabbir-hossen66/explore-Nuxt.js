@@ -245,6 +245,24 @@ const createPost = async () => {
 
 #### orgApiClient Data
 
+## for necessary 
+
+```
+const { $orgUserApiClient } = useNuxtApp();
+const authStore = useOrgAuthStore();
+const organizationId = authStore.orgUser?.organizationId ?? 1;
+
+// Filter and pagination for fetching data
+const filter = ref<PaginationFilter>({
+  sort: 'name',
+  fields: 'id, name',
+  perPage: 5,
+  page: 1,
+  // filter: { name: '' },
+});
+
+```
+
 ```
  try {
     const orgJourneyApiResponse = await $orgUserApiClient
