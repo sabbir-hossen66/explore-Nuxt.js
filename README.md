@@ -243,6 +243,22 @@ const createPost = async () => {
 ```
 
 
+#### orgApiClient Data
+
+```
+ try {
+    const orgJourneyApiResponse = await $orgUserApiClient
+      ?.journeyApi
+      ?.getAll(organizationId, filter.value);
+    journeyList.value = orgJourneyApiResponse.data;
+    // pageMeta.value = orgJourneyApiResponse.meta;
+  } catch (error) {
+    throw error;
+  }
+  
+  ```
+
+
 ### For unserstand full code axios and useAsnycData
 
 ```
@@ -269,6 +285,13 @@ const { data, pending, error } = await useAsyncData('posts', async () => {
   </div>
 </template>
 ```
+
+
+
+
+
+
+
 
 
 ======= Error Handeling =======
@@ -314,5 +337,9 @@ if (error.value) {
 }
 </script>
 ```
+
+
+
+
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
